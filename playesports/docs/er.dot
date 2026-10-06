@@ -1,0 +1,31 @@
+digraph ER {
+ graph [rankdir=LR, fontname="Helvetica", bgcolor="white", nodesep=0.8, ranksep=1.6, pad=0.4, label="PlayEsports - Diagrama Entidade-Relacionamento (PostgreSQL/Supabase)", labelloc=t, fontsize=20];
+ node [shape=plain, fontname="Helvetica", fontsize=12];
+ edge [fontname="Helvetica", fontsize=11, color="#337551", penwidth=1.8];
+ usuarios [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+  <tr><td bgcolor="#337551"><font color="white"><b>usuarios</b></font></td></tr>
+  <tr><td align="left" port="id"><b>PK</b> id : uuid (= auth.users.id)</td></tr>
+  <tr><td align="left">nome : text</td></tr><tr><td align="left">email : text</td></tr>
+  <tr><td align="left">telefone : text</td></tr><tr><td align="left">criado_em : timestamptz</td></tr></table>>];
+ quadras [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+  <tr><td bgcolor="#337551"><font color="white"><b>quadras</b></font></td></tr>
+  <tr><td align="left" port="id"><b>PK</b> id : uuid</td></tr>
+  <tr><td align="left">nome : text</td></tr><tr><td align="left">cidade : text</td></tr><tr><td align="left">endereco : text</td></tr>
+  <tr><td align="left">telefone : text</td></tr><tr><td align="left">modalidades : text[]</td></tr>
+  <tr><td align="left">preco_hora : numeric(10,2)</td></tr><tr><td align="left">horario_abertura : time</td></tr>
+  <tr><td align="left">horario_fechamento : time</td></tr><tr><td align="left">avaliacao : numeric(2,1)</td></tr>
+  <tr><td align="left">descricao : text</td></tr><tr><td align="left">foto_url : text</td></tr></table>>];
+ reservas [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="6">
+  <tr><td bgcolor="#2f4f8f"><font color="white"><b>reservas</b></font></td></tr>
+  <tr><td align="left"><b>PK</b> id : uuid</td></tr>
+  <tr><td align="left"><b>UK</b> codigo : text</td></tr>
+  <tr><td align="left" port="q"><b>FK</b> quadra_id : uuid</td></tr>
+  <tr><td align="left" port="u"><b>FK</b> usuario_id : uuid</td></tr>
+  <tr><td align="left">data : date</td></tr><tr><td align="left">horario_inicio : time</td></tr><tr><td align="left">horario_fim : time</td></tr>
+  <tr><td align="left">colete : boolean</td></tr><tr><td align="left">valor_total : numeric(10,2)</td></tr>
+  <tr><td align="left">status : agendado | finalizado | cancelado</td></tr>
+  <tr><td align="left">avaliacao : int (1-5)</td></tr><tr><td align="left">criado_em : timestamptz</td></tr>
+  <tr><td bgcolor="#fff3cd" align="left"><i>UNIQUE (quadra_id, data, horario_inicio)<br align="left"/>WHERE status &lt;&gt; 'cancelado'<br align="left"/>(impede reserva dupla)</i></td></tr></table>>];
+ usuarios -> reservas:u [label="  1 faz N  ", arrowhead=crowodot, arrowtail=tee, dir=both];
+ quadras  -> reservas:q [label="  1 recebe N  ", arrowhead=crowodot, arrowtail=tee, dir=both];
+}

@@ -1,16 +1,20 @@
-# React + Vite
+# PlayEsports
+Plataforma web mobile-first para reserva de quadras de futebol em Capão da Canoa/RS.
+TCC Projeto Tecnológico – ULBRA Torres – Leonardo Leal da Silva (orientador: Prof. Juliano Ramos Matos).
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Stack:** React + Vite · Supabase (Auth + PostgreSQL + RLS) · n8n/WhatsApp (fase 2)
 
-Currently, two official plugins are available:
+## Rodar
+1. `npm install`
+2. Criar `.env` com `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`
+3. Rodar `sql/01_schema.sql` (banco novo) ou `sql/02_ajustes_e_dados_exemplo.sql` (banco já criado)
+4. `npm run dev`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Funcionalidades (MVP parte 1)
+Cadastro/Login · lista de arenas com filtro por cidade e modalidade · detalhes da arena · reserva com grade de horários (bloqueia horários ocupados) · agenda (Agendados / Finalizados / Cancelados) com cancelamento · detalhe da reserva · perfil/sair.
 
-## React Compiler
+## Documentação
+`docs/diagrama_ER.png` (modelo de dados) · `docs/arquitetura.png`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Uso de IA
+Assistente de IA (Claude) utilizado como apoio de estudo e geração de código, revisado e testado pelo autor.

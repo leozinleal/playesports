@@ -1,58 +1,39 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
+import Header from '../components/Header'
+import BottomNav from '../components/BottomNav'
+import { Pin, Clock, Phone } from '../components/Icons'
+import { brl, hhmm, inicialDe } from '../utils'
 
-function DetalheArena() {
+export default function DetalheArena() {
   const { id } = useParams()
-  const [quadra, setQuadra] = useState(null)
-  const [carregando, setCarregando] = useState(true)
-
+  const [q, setQ] = useState(null)
+  const [erro, setErro] = useState('')
   useEffect(() => {
-    async function carregarQuadra() {
-      const { data, error } = await supabase
-        .from('quadras')
-        .select('*')
-        .eq('id', id)
-        .single()
-
-      if (error) {
-        console.error('Erro ao buscar quadra:', error)
-      } else {
-        setQuadra(data)
-      }
-
-      setCarregando(false)
-    }
-
-    carregarQuadra()
+    supabase.from('quadras').select('*').eq('id', id).single().then(({ data, error }) => error ? setErro('Arena não encontrada.') : setQ(data))
   }, [id])
 
-  if (carregando) return <p>Carregando...</p>
-  if (!quadra) return <p>Quadra não encontrada.</p>
-
   return (
-    <div style={{ maxWidth: '500px', margin: '20px auto' }}>
-      <h1>{quadra.nome}</h1>
-      <p>⭐ {quadra.avaliacao}</p>
-      <p>{quadra.endereco}</p>
-      <p>{quadra.horario_abertura} - {quadra.horario_fechamento}</p>
-      <p>{quadra.telefone}</p>
-      <p>{quadra.modalidades?.join(', ')}</p>
-
-      <h3>Descrição</h3>
-      <p>{quadra.descricao}</p>
-
-      <div style={{ border: '1px solid #ccc', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <strong>R$ {quadra.preco_hora},00</strong>
-          <p style={{ margin: 0 }}>por hora</p>
-        </div>
-        <Link to={`/quadra/${quadra.id}/reservar`}>
-          <button style={{ padding: '10px 20px' }}>Alugar</button>
-        </Link>
-      </div>
+    <div className="tela">
+      <Header titulo="Detalhes" />
+      {erro && <p className="erro conteudo">{erro}</p>}
+      {q && (
+        <main className="conteudo com-barra">
+          {q.foto_url ? <img className="foto" src={q.foto_url} alt={q.nome} /> : <div className="foto foto-vazia">{inicialDe(q.nome)}</div>}
+          <div className="titulo-linha"><h2>{q.nome}</h2><span className="nota">★ {Number(q.avaliacao).toFixed(1)}</span></div>
+          <ul className="infos">
+            <li><Pin /> {q.endereco}</li>
+            <li><Clock /> {hhmm(q.horario_abertura)} - {hhmm(q.horario_fechamento)}</li>
+            {q.telefone && <li><Phone /> {q.telefone}</li>}
+            {q.modalidades?.length > 0 && <li>⚽ {q.modalidades.join(' · ')}</li>}
+          </ul>
+          <h3>Descrição</h3>
+          <p className="muted">{q.descricao || 'Sem descrição.'}</p>
+          <div className="barra-preco"><div><strong>{brl(q.preco_hora)}</strong><small>por hora</small></div><Link to={`/quadra/${q.id}/reservar`} className="btn-alugar">Alugar</Link></div>
+        </main>
+      )}
+      <BottomNav />
     </div>
   )
 }
-
-export default DetalheArena
