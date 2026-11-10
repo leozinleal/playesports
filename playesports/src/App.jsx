@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DonoCadastro from './pages/DonoCadastro'
+import DonoPainel from './pages/DonoPainel'
 import Login from './pages/Login'
 import Cadastro from './pages/Cadastro'
 import TelaInicial from './pages/TelaInicial'
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/agenda" element={<Agenda />} />
         <Route path="/reserva/:id" element={<DetalheReserva />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/dono" element={<DonoPainel />} />
+        <Route path="/dono/cadastro" element={<DonoCadastro />} />
         <Route path="*" element={<p style={{padding:20}}>Página não encontrada</p>} />
       </Routes>
     </BrowserRouter>

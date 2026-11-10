@@ -53,4 +53,10 @@
   .auth-lista{font-size:14px;gap:10px;justify-items:start;text-align:left}
   .auth-form{margin-top:-30px;position:relative;z-index:2;border-radius:28px 28px 0 0;padding:28px 24px 32px;box-shadow:0 -8px 24px #0000001f}
   .auth-form h2{font-size:24px;margin-bottom:4px}
+  .auth-bola{display:none}
 }
+
+/* ---------- Bloco "É dono de quadra?" ---------- */
+.auth-parceiro{display:grid;gap:6px;padding:14px 16px;border:1px dashed #c7d3cb;border-radius:14px;background:#f5f9f6;font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+.auth-parceiro strong{color:var(--texto);font-size:14px}
+.auth-parceiro a{color:var(--verde);font-weight:600}
