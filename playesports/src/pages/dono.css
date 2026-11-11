@@ -10,7 +10,7 @@
 .dono-form .auth-botao{width:100%;max-width:none}
 .dono-novo{display:block;text-align:center;padding:13px;border-radius:999px;background:var(--verde);color:#fff;font-weight:600;margin:4px 0 12px}
 .dono-abas{display:flex;gap:8px;margin:0 0 14px}
-.dono-abas button{flex:1;padding:10px 6px;border-radius:999px;background:#fff;border:1px solid #d5ded8;font-size:13px;color:var(--muted);font-weight:500}
+.dono-abas button{flex:1;padding:10px 4px;border-radius:999px;background:#fff;border:1px solid #d5ded8;font-size:12px;color:var(--muted);font-weight:500}
 .dono-abas button.ativo{background:var(--verde);border-color:var(--verde);color:#fff;font-weight:600}
 .dono-reserva{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px #0000000f;display:grid;gap:4px}
 .dono-reserva-topo{display:flex;justify-content:space-between;align-items:center}
@@ -21,3 +21,7 @@
 .dono-acoes a,.dono-acoes button{color:var(--verde);font-weight:600;font-size:13px}
 .dono-acoes button:last-child{color:var(--erro)}
 .dono-selo{margin-right:auto;background:#eee;color:var(--muted);padding:3px 10px;border-radius:999px;font-size:12px}
+.dono-resposta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.dono-resposta button{padding:10px;border-radius:999px;font-weight:600;font-size:13px}
+.dono-resposta .aceitar{background:var(--verde);color:#fff}
+.dono-resposta .recusar{background:#fff;color:var(--erro);border:1.5px solid var(--erro)}

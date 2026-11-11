@@ -6,7 +6,8 @@ import BottomNav from '../components/BottomNav'
 import { Search } from '../components/Icons'
 import { brl, hhmm, dataBR, statusEfetivo, inicialDe } from '../utils'
 
-const ABAS = [['agendado', 'Agendados'], ['finalizado', 'Finalizados'], ['cancelado', 'Cancelados']]
+const ABAS = [['pendente', 'Pendentes'], ['agendado', 'Agendados'], ['finalizado', 'Finalizados'], ['cancelado', 'Cancelados']]
+const ROTULO = { pendente: 'Solicitado', agendado: 'Agendado', finalizado: 'Agendado', cancelado: 'Cancelado' }
 
 export default function Agenda() {
   const nav = useNavigate()
@@ -43,7 +44,7 @@ export default function Agenda() {
         {!carregando && lista.length === 0 && <p className="muted">Nenhuma reserva aqui.</p>}
         {lista.map((r) => (
           <div className="card-reserva" key={r.id}>
-            <div className="card-reserva-topo"><span>{aba === 'cancelado' ? 'Cancelado' : 'Agendado'} em {dataBR(r.criado_em.slice(0, 10))}</span><span className="codigo">{r.codigo}</span></div>
+            <div className="card-reserva-topo"><span>{ROTULO[aba]} em {dataBR(r.criado_em.slice(0, 10))}</span><span className="codigo">{r.codigo}</span></div>
             <Link to={`/reserva/${r.id}`} className="card-reserva-corpo">
               {r.quadras?.foto_url ? <img className="avatar" src={r.quadras.foto_url} alt="" /> : <div className="avatar">{inicialDe(r.quadras?.nome)}</div>}
               <div><strong>{r.quadras?.nome}</strong>
@@ -52,7 +53,7 @@ export default function Agenda() {
                 <div className="mini">{brl(r.valor_total)}</div></div>
               <span className="seta">›</span>
             </Link>
-            {aba === 'agendado' && <button className="btn-cancelar" onClick={() => cancelar(r)}>Cancelar reserva</button>}
+           {(aba === 'agendado' || aba === 'pendente') && <button className="btn-cancelar" onClick={() => cancelar(r)}>Cancelar reserva</button>}
           </div>
         ))}
       </main>

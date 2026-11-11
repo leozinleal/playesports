@@ -12,7 +12,7 @@ export default function DetalheReserva() {
   useEffect(() => { supabase.from('reservas').select('*, quadras(*)').eq('id', id).single().then(({ data }) => setR(data)) }, [id])
   if (!r) return <div className="tela"><Header titulo="Agendamento" /></div>
   const st = statusEfetivo(r)
-  const rotulo = { agendado: 'Reserva confirmada!', finalizado: 'Reserva finalizada', cancelado: 'Reserva cancelada' }[st]
+  const rotulo = { pendente: 'Aguardando confirmação do dono', agendado: 'Reserva confirmada!', finalizado: 'Reserva finalizada', cancelado: 'Reserva cancelada' }[st]
   return (
     <div className="tela">
       <Header titulo={`Agendamento ${r.codigo}`} />

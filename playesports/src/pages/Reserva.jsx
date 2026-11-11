@@ -62,7 +62,7 @@ export default function Reserva() {
         <label className="check"><input type="checkbox" checked={colete} onChange={(e) => setColete(e.target.checked)} /> Alugar coletes (+ {brl(COLETE)})</label>
         {erro && <p className="erro">{erro}</p>}
         <div className="barra-preco"><div><strong>{brl(total)}</strong><small>{slot ? `${slot} - ${somaHora(slot)}` : 'selecione um horário'}</small></div>
-          <button className="btn-alugar" onClick={confirmar} disabled={salvando}>{salvando ? '...' : 'Confirmar'}</button></div>
+          <button className="btn-alugar" onClick={confirmar} disabled={salvando}>{salvando ? '...' : 'Solicitar'}</button></div>
       </main>
     </div>
   )

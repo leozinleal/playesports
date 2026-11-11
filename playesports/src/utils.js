@@ -6,6 +6,7 @@ export function fimDaReserva(r) { return new Date(`${r.data}T${r.horario_fim}`) 
 // estado exibido na Agenda: agendado vencido vira finalizado
 export function statusEfetivo(r) {
   if (r.status === 'cancelado') return 'cancelado'
+  if (r.status === 'pendente') return fimDaReserva(r) < new Date() ? 'cancelado' : 'pendente'   // pendente que passou do horário = expirada
   if (r.status === 'finalizado' || fimDaReserva(r) < new Date()) return 'finalizado'
   return 'agendado'
 }
