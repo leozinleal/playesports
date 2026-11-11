@@ -15,3 +15,9 @@
 .dono-reserva{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px #0000000f;display:grid;gap:4px}
 .dono-reserva-topo{display:flex;justify-content:space-between;align-items:center}
 .dono-ver{display:block;text-align:center;padding:13px;border-radius:999px;border:1.5px solid var(--verde);color:var(--verde);font-weight:600;margin:0 0 12px}z
+.dono-item{margin-bottom:12px}
+.dono-item.inativa .card-quadra{opacity:.55}
+.dono-acoes{display:flex;gap:16px;align-items:center;justify-content:flex-end;padding:6px 6px 0;font-size:13px}
+.dono-acoes a,.dono-acoes button{color:var(--verde);font-weight:600;font-size:13px}
+.dono-acoes button:last-child{color:var(--erro)}
+.dono-selo{margin-right:auto;background:#eee;color:var(--muted);padding:3px 10px;border-radius:999px;font-size:12px}

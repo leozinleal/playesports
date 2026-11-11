@@ -11,7 +11,7 @@ export default function DetalheArena() {
   const [q, setQ] = useState(null)
   const [erro, setErro] = useState('')
   useEffect(() => {
-    supabase.from('quadras').select('*').eq('id', id).single().then(({ data, error }) => error ? setErro('Arena não encontrada.') : setQ(data))
+    supabase.from('quadras').select('*').eq('id', id).single().then(({ data, error }) => error || !data.ativa ? setErro('Arena não encontrada.') : setQ(data))
   }, [id])
 
   return (

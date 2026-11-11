@@ -17,7 +17,7 @@ export default function TelaInicial() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setLogado(!!data.user))
-    supabase.from('quadras').select('*').order('avaliacao', { ascending: false }).then(({ data, error }) => {
+    supabase.from('quadras').select('*').eq('ativa', true).order('avaliacao', { ascending: false }).then(({ data, error }) => {
       if (error) setErro('Não foi possível carregar as arenas.')
       else setQuadras(data)
       setCarregando(false)

@@ -23,6 +23,11 @@ export default function DonoPainel() {
     carregar()
   }, [])
 
+  async function alternarAtiva(q) {
+    const { error } = await supabase.from('quadras').update({ ativa: !q.ativa }).eq('id', q.id)
+    if (!error) setQuadras(quadras.map((x) => (x.id === q.id ? { ...x, ativa: !q.ativa } : x)))
+  }
+
   async function sair() { await supabase.auth.signOut(); nav('/login') }
 
   return (
@@ -41,7 +46,16 @@ export default function DonoPainel() {
         {perfil && quadras.length === 0 && (
           <p className="muted">Você ainda não tem quadras cadastradas. Use o botão acima para cadastrar a primeira.</p>
         )}
-        {quadras.map((q) => <CardQuadra key={q.id} quadra={q} />)}
+        {quadras.map((q) => (
+          <div key={q.id} className={q.ativa ? 'dono-item' : 'dono-item inativa'}>
+            <CardQuadra quadra={q} />
+            <div className="dono-acoes">
+              {!q.ativa && <span className="dono-selo">Desativada</span>}
+              <Link to={`/dono/quadra/${q.id}/editar`}>Editar</Link>
+              <button onClick={() => alternarAtiva(q)}>{q.ativa ? 'Desativar' : 'Reativar'}</button>
+            </div>
+          </div>
+        ))}
         {perfil && <button className="btn btn-verde pequeno" onClick={sair}>Sair</button>}
       </main>
     </div>
