@@ -1,0 +1,17 @@
+.dono-form{display:grid;gap:14px;max-width:520px;margin:0 auto;padding-bottom:32px}
+.dono-form label,.dono-form legend{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--texto)}
+.dono-form input,.dono-form textarea{font:inherit;font-weight:400;padding:12px 14px;border:1px solid #e3dfdc;border-radius:12px;background:#fff;outline:0;min-width:0}
+.dono-form input:focus,.dono-form textarea:focus{border-color:var(--verde);box-shadow:0 0 0 3px #33755133}
+.dono-form fieldset{border:0;padding:0;display:grid;gap:8px}
+.dono-linha{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dono-chips{display:flex;flex-wrap:wrap;gap:8px}
+.dono-chips .chip{padding:8px 14px;border-radius:999px;border:1px solid #d5ded8;background:#fff;font-size:13px;color:var(--muted)}
+.dono-chips .chip.on{background:var(--verde);border-color:var(--verde);color:#fff}
+.dono-form .auth-botao{width:100%;max-width:none}
+.dono-novo{display:block;text-align:center;padding:13px;border-radius:999px;background:var(--verde);color:#fff;font-weight:600;margin:4px 0 12px}
+.dono-abas{display:flex;gap:8px;margin:0 0 14px}
+.dono-abas button{flex:1;padding:10px 6px;border-radius:999px;background:#fff;border:1px solid #d5ded8;font-size:13px;color:var(--muted);font-weight:500}
+.dono-abas button.ativo{background:var(--verde);border-color:var(--verde);color:#fff;font-weight:600}
+.dono-reserva{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px #0000000f;display:grid;gap:4px}
+.dono-reserva-topo{display:flex;justify-content:space-between;align-items:center}
+.dono-ver{display:block;text-align:center;padding:13px;border-radius:999px;border:1.5px solid var(--verde);color:var(--verde);font-weight:600;margin:0 0 12px}z

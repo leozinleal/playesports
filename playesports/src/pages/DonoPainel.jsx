@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import Header from '../components/Header'
 import CardQuadra from '../components/CardQuadra'
+import './dono.css'
 
 export default function DonoPainel() {
   const nav = useNavigate()
@@ -34,9 +35,11 @@ export default function DonoPainel() {
             <p className="muted">Bem-vindo à área do parceiro do PlayEsports.</p>
           </div>
         )}
+        <Link to="/dono/quadra/nova" className="dono-novo">+ Cadastrar nova quadra</Link>
+        <Link to="/dono/reservas" className="dono-ver">Ver reservas recebidas</Link>
         <h3>Minhas quadras</h3>
         {perfil && quadras.length === 0 && (
-          <p className="muted">Você ainda não tem quadras cadastradas. O cadastro de quadras estará disponível em breve.</p>
+          <p className="muted">Você ainda não tem quadras cadastradas. Use o botão acima para cadastrar a primeira.</p>
         )}
         {quadras.map((q) => <CardQuadra key={q.id} quadra={q} />)}
         {perfil && <button className="btn btn-verde pequeno" onClick={sair}>Sair</button>}

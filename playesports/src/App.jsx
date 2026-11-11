@@ -9,6 +9,8 @@ import Reserva from './pages/Reserva'
 import Agenda from './pages/Agenda'
 import DetalheReserva from './pages/DetalheReserva'
 import Perfil from './pages/Perfil'
+import DonoQuadraNova from './pages/DonoQuadraNova'
+import DonoReservas from './pages/DonoReservas'
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/dono" element={<DonoPainel />} />
         <Route path="/dono/cadastro" element={<DonoCadastro />} />
+        <Route path="/dono/quadra/nova" element={<DonoQuadraNova />} />
+        <Route path="/dono/reservas" element={<DonoReservas />} />
         <Route path="*" element={<p style={{padding:20}}>Página não encontrada</p>} />
       </Routes>
     </BrowserRouter>
