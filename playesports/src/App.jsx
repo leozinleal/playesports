@@ -11,6 +11,7 @@ import DetalheReserva from './pages/DetalheReserva'
 import Perfil from './pages/Perfil'
 import DonoQuadraNova from './pages/DonoQuadraNova'
 import DonoReservas from './pages/DonoReservas'
+import Responder from './pages/Responder'
 
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/dono/quadra/nova" element={<DonoQuadraNova />} />
         <Route path="/dono/reservas" element={<DonoReservas />} />
         <Route path="/dono/quadra/:id/editar" element={<DonoQuadraNova />} />
+        <Route path="/responder/:token" element={<Responder />} />
         <Route path="*" element={<p style={{padding:20}}>Página não encontrada</p>} />
       </Routes>
     </BrowserRouter>
