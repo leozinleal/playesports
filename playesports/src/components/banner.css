@@ -1,0 +1,33 @@
+/* Banner animado da tela inicial + logo no topo */
+.banner.banner-jogo{position:relative;overflow:hidden}
+.banner-jogo .bj{position:absolute;inset:0;width:100%;height:100%}
+/* degradê escuro à direita: o texto sempre fica legível por cima da animação */
+.banner-jogo::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(270deg,#0f3a24f2 0%,#0f3a24cc 30%,#0f3a2466 52%,#0f3a2400 75%)}
+.banner-jogo .banner-texto{position:relative;z-index:2;text-shadow:0 2px 8px #00000080}
+
+/* jogadores correm de leve; a bola passa de um para o outro (jogadas de ~9s) */
+.bj-corre{animation:bj-corre 2.8s ease-in-out infinite alternate}
+@keyframes bj-corre{from{transform:translate(-4px,-3px)}to{transform:translate(4px,3px)}}
+.bj-bola{animation:bj-passes 9s ease-in-out infinite;transform:translate(160px,52px)}
+@keyframes bj-passes{
+  0%{transform:translate(160px,52px)}
+  11.6%{transform:translate(215px,105px)}
+  16.7%{transform:translate(215px,105px)}
+  28.3%{transform:translate(285px,47px)}
+  33.3%{transform:translate(285px,47px)}
+  45%{transform:translate(306px,99px)}
+  50%{transform:translate(306px,99px)}
+  61.6%{transform:translate(285px,47px)}
+  66.7%{transform:translate(285px,47px)}
+  78.3%{transform:translate(215px,105px)}
+  83.3%{transform:translate(215px,105px)}
+  95%{transform:translate(160px,52px)}
+  100%{transform:translate(160px,52px)}
+}
+@media (prefers-reduced-motion:reduce){.bj-corre,.bj-bola{animation:none}}
+
+/* topo: logo + nome */
+.header h1.logo{display:flex;align-items:center;gap:10px;text-align:left}
+.header h1.logo img{height:36px;width:auto;display:block;
+  filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff) drop-shadow(0 2px 4px #0000004d)}

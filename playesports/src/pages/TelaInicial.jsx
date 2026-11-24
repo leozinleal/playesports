@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import BannerJogo from '../components/BannerJogo'
+import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import CardQuadra from '../components/CardQuadra'
@@ -31,7 +33,7 @@ export default function TelaInicial() {
     <div className="tela">
       <header className="header">
         <div className="header-linha">
-          <h1 className="logo">⚽ PlaySports</h1>
+          <h1 className="logo"><img src={logo} alt="" />PlaySports</h1>
           {logado
             ? <Link to="/perfil" className="link-claro">Meu perfil</Link>
             : <Link to="/login" className="link-claro">Entrar</Link>}
@@ -39,7 +41,7 @@ export default function TelaInicial() {
         <label className="busca"><Pin /><input placeholder="Informe sua cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} /></label>
       </header>
       <main className="conteudo">
-        <div className="banner"><span>AGENDE<br />AGORA<br />SEU HORÁRIO</span></div>
+        <div className="banner banner-jogo"><BannerJogo /><span className="banner-texto">AGENDE<br />AGORA<br />SEU HORÁRIO</span></div>
         <div className="pills">{FILTROS.map((f) => <button key={f} className={'pill' + (filtro === f ? ' ativo' : '')} onClick={() => setFiltro(filtro === f ? null : f)}>{f}</button>)}</div>
         <h3>Arenas disponíveis:</h3>
         {carregando && <p className="muted">Carregando...</p>}
