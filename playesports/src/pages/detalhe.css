@@ -1,0 +1,14 @@
+.det-titulo{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 10px}
+.det-titulo h2{font-size:24px;line-height:1.15}
+.det-novo{background:#e8f3ec;color:var(--verde);font-weight:600;font-size:12px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.det-cols{display:block}
+.det-cols.largo{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;margin-top:6px;align-items:start}
+.det-reserva{position:sticky;top:16px;margin-top:16px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 24px #0002;display:grid;gap:12px}
+.det-preco{font-size:28px;font-weight:700}
+.det-preco small{font-size:13px;font-weight:400;color:var(--muted)}
+.det-reserva ul{list-style:none;display:grid;gap:8px;font-size:13px;color:var(--muted)}
+.det-reserva li{display:flex;gap:8px;align-items:flex-start}
+.det-reserva li svg{flex-shrink:0;color:var(--verde);margin-top:1px}
+.det-alugar{background:var(--verde);color:#fff;text-align:center;font-weight:700;font-size:16px;padding:14px;border-radius:999px}
+/* barra de preço do celular: botão branco, mesmo estilo da proposta */
+.barra-preco .btn-alugar{background:#fff;color:var(--verde);font-weight:700;padding:11px 28px;border-radius:999px}

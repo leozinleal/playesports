@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import Header from '../components/Header'
+import FotosQuadra from '../components/FotosQuadra'
+import { caminhoNoBucket } from '../imagem'
 import './dono.css'
 
 const MODALIDADES = ['Society', 'Futsal', 'Campo', 'Beach Soccer']
@@ -15,8 +17,10 @@ export default function DonoQuadraNova() {
   const [f, setF] = useState({
     nome: '', cidade: 'Capão da Canoa', endereco: '', telefone: '',
     preco_hora: '', horario_abertura: '08:00', horario_fechamento: '23:00',
-    descricao: '', foto_url: '', modalidades: [],
+    descricao: '', modalidades: [],
   })
+  const [fotos, setFotos] = useState([])        // links das fotos (a primeira é a capa)
+  const [removidas, setRemovidas] = useState([]) // fotos tiradas; só apagadas do armazenamento ao salvar
   const [erro, setErro] = useState('')
   const [salvando, setSalvando] = useState(false)
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value })
@@ -33,8 +37,9 @@ export default function DonoQuadraNova() {
         nome: q.nome, cidade: q.cidade, endereco: q.endereco, telefone: q.telefone || '',
         preco_hora: String(q.preco_hora), horario_abertura: q.horario_abertura.slice(0, 5),
         horario_fechamento: q.horario_fechamento.slice(0, 5), descricao: q.descricao || '',
-        foto_url: q.foto_url || '', modalidades: q.modalidades || [],
+        modalidades: q.modalidades || [],
       })
+      setFotos(q.fotos?.length ? q.fotos : q.foto_url ? [q.foto_url] : [])
     }
     iniciar()
   }, [])
@@ -52,7 +57,7 @@ export default function DonoQuadraNova() {
       telefone: f.telefone || null,
       preco_hora: Number(String(f.preco_hora).replace(',', '.')),
       horario_abertura: f.horario_abertura, horario_fechamento: f.horario_fechamento,
-      descricao: f.descricao || null, foto_url: f.foto_url || null,
+      descricao: f.descricao || null, fotos, foto_url: fotos[0] || null,
       modalidades: f.modalidades,
     }
     const { error } = editando
@@ -60,6 +65,9 @@ export default function DonoQuadraNova() {
       : await supabase.from('quadras').insert({ ...dados, dono_id: userId })
     setSalvando(false)
     if (error) return setErro('Não foi possível salvar: ' + error.message)
+    // apaga do armazenamento as fotos que o dono removeu (só as que estão na nossa pasta)
+    const caminhos = removidas.map(caminhoNoBucket).filter((c) => c && c.startsWith(userId + '/'))
+    if (caminhos.length) await supabase.storage.from('quadras').remove(caminhos)
     nav('/dono')
   }
 
@@ -86,7 +94,7 @@ export default function DonoQuadraNova() {
             </div>
           </fieldset>
           <label>Descrição<textarea rows={3} value={f.descricao} onChange={set('descricao')} /></label>
-          <label>Link da foto (opcional)<input value={f.foto_url} onChange={set('foto_url')} placeholder="https://..." /></label>
+          {userId && <FotosQuadra fotos={fotos} onChange={setFotos} onRemover={(u) => setRemovidas((r) => [...r, u])} userId={userId} />}
           {erro && <p className="auth-erro" role="alert">{erro}</p>}
           <button className="auth-botao" disabled={salvando}>{salvando ? 'Salvando...' : editando ? 'Salvar alterações' : 'Salvar quadra'}</button>
         </form>
