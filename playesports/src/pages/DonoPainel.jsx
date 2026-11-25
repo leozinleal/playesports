@@ -135,7 +135,7 @@ export default function DonoPainel() {
                 </section>
 
                 <section className="dp-card">
-                  <h3>Próximos jogos <Link to="/dono/reservas">Ver todos</Link></h3>
+                  <h3>Próximos jogos <Link to="/dono/reservas?aba=agendado">Ver todos</Link></h3>
                   {proximos.length === 0 && <p className="dp-vazio">Nenhum jogo confirmado por enquanto.</p>}
                   {proximos.map((r) => (
                     <div className="dp-pj" key={r.id}>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import Header from '../components/Header'
@@ -10,7 +11,9 @@ const ABAS = [['pendente', 'Pendentes'], ['agendado', 'Agendadas'], ['finalizado
 export default function DonoReservas() {
   const nav = useNavigate()
   const [lista, setLista] = useState([])
-  const [aba, setAba] = useState('pendente')
+  const [params] = useSearchParams()
+  const inicial = params.get('aba')
+  const [aba, setAba] = useState(ABAS.some(([k]) => k === inicial) ? inicial : 'pendente')
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState('')
 
