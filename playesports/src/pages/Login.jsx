@@ -24,8 +24,10 @@ export default function Login() {
   async function entrar(e) {
     e.preventDefault(); setErro(''); setCarregando(true)
     const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha })
-    if (error) { setCarregando(false); return setErro('E-mail ou senha incorretos.') }
-
+    if (error) {
+      setCarregando(false)
+      return setErro(/not confirmed/i.test(error.message) ? 'Confirme seu e-mail antes de entrar. Veja o link que enviamos (olhe o spam).' : 'E-mail ou senha incorretos.')
+    }
     // descobre se a conta é de cliente ou de dono de quadra
     const { data: perfil } = await supabase.from('usuarios').select('tipo').eq('id', data.user.id).single()
     setCarregando(false)

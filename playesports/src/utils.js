@@ -26,3 +26,29 @@ export function somaHora(h, mais = 60) {
   const [a, b] = h.split(':').map(Number); const m = a * 60 + b + mais
   return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`
 }
+
+
+// ---- cadastro: CPF e telefone ----
+export const soDigitos = (s = '') => String(s).replace(/\D/g, '')
+export function mascaraCpf(v) {
+  const d = soDigitos(v).slice(0, 11)
+  return d.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+}
+export function mascaraTel(v) {
+  const d = soDigitos(v).slice(0, 11)
+  if (d.length <= 2) return d
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`
+}
+export function cpfValido(valor) {
+  const c = soDigitos(valor)
+  if (c.length !== 11 || /^(\d)\1{10}$/.test(c)) return false
+  const dv = (n) => {
+    let s = 0
+    for (let i = 0; i < n; i++) s += Number(c[i]) * (n + 1 - i)
+    const r = (s * 10) % 11
+    return r === 10 ? 0 : r
+  }
+  return dv(9) === Number(c[9]) && dv(10) === Number(c[10])
+}
