@@ -14,9 +14,9 @@ export async function reduzirImagem(arquivo, maximo = 1600, qualidade = 0.82) {
     canvas.toBlob((b) => (b ? ok(b) : falha(new Error('Falha ao converter a foto'))), 'image/jpeg', qualidade))
 }
 
-// Caminho do arquivo dentro do bucket "quadras" (para apagar). Links de outros sites retornam null.
-export function caminhoNoBucket(url) {
-  const marca = '/object/public/quadras/'
+// Caminho do arquivo dentro de um bucket (para apagar). Links de outros sites retornam null.
+export function caminhoNoBucket(url, bucket = 'quadras') {
+  const marca = `/object/public/${bucket}/`
   const i = url.indexOf(marca)
   return i === -1 ? null : decodeURIComponent(url.slice(i + marca.length))
 }

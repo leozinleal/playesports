@@ -1,0 +1,31 @@
+.pf-cols{display:block}
+.pf-cols.largo{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:18px;align-items:start}
+.pf-cols:not(.largo)>*+*{margin-top:14px}
+.pf-card{background:#fff;border-radius:20px;padding:20px}
+.pf-topo{text-align:center}
+.pf-av{position:relative;width:104px;height:104px;margin:0 auto}
+.pf-av .foto{width:104px;height:104px;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;font-weight:700;font-size:36px;overflow:hidden}
+.pf-av img{width:100%;height:100%;object-fit:cover;display:block}
+.pf-cam{position:absolute;right:-2px;bottom:2px;width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #e8f3ec;display:grid;place-items:center;font-size:16px;box-shadow:0 2px 6px #0003}
+.pf-cam:disabled{opacity:.6}
+.pf-topo h2{font-size:22px;margin-top:12px}
+.pf-topo p{font-size:13px;color:var(--muted)}
+.pf-st{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.pf-st div{background:#f6f3f1;border-radius:14px;padding:10px 4px;text-align:center}
+.pf-st b{display:block;font-size:20px}
+.pf-st small{font-size:11px;color:var(--muted)}
+.pf-card h3{font-size:17px;margin-bottom:14px}
+.pf-form{display:grid;gap:12px}
+.pf-form label{display:grid;gap:5px;font-size:12px;font-weight:600;color:var(--muted)}
+.pf-form input{background:#f6f3f1;border:1.5px solid transparent;border-radius:12px;padding:12px 14px;font-size:15px;color:#1c1917;font-weight:400;width:100%;min-width:0}
+.pf-form input:focus{outline:0;border-color:var(--verde);background:#fff}
+.pf-form input:disabled{color:#8a847f}
+.pf-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pf-cols:not(.largo) .pf-2{grid-template-columns:1fr}
+.pf-bt{display:block;width:100%;text-align:center;padding:13px;border-radius:99px;font-weight:700;font-size:15px;border:1.5px solid var(--verde);color:var(--verde);background:transparent}
+.pf-bt.p{background:var(--verde);color:#fff}
+.pf-bt.r{border-color:#e6b4b0;color:#b3261e}
+.pf-bt:disabled{opacity:.6}
+.pf-sep{height:1px;background:#eee8e4;margin:18px 0}
+.pf-ok{color:var(--verde);font-size:13px;font-weight:600}
+.pf-card .pf-sair{margin-top:16px}
