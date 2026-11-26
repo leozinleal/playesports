@@ -49,3 +49,6 @@
 .dp-cols:not(.largo) .dp-q{flex-wrap:wrap}
 .dp-cols:not(.largo) .dp-qa{margin-left:76px;width:100%}
 .dp-sair{display:block;margin:18px auto 0}
+
+.dp-ajuda{text-align:center;font-size:13px;color:var(--muted);margin-top:12px}
+.dp-ajuda a{color:var(--verde);font-weight:600}

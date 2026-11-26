@@ -166,6 +166,7 @@ export default function DonoPainel() {
               </section>
 
               <button className="btn btn-verde pequeno dp-sair" onClick={sair}>Sair</button>
+                            <p className="dp-ajuda">Precisa de ajuda? <Link to="/suporte">Fale com o suporte</Link></p>
             </div>
           </div>
         )}

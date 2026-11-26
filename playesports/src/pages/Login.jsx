@@ -87,6 +87,7 @@ export default function Login() {
               <Link to="/" className="auth-voltar">← Voltar para o início</Link>
             </>
           )}
+          <p className="auth-rodape">Precisa de ajuda? <Link to="/suporte">Fale com o suporte</Link></p>
         </form>
       </div>
     </div>

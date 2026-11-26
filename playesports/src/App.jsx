@@ -12,7 +12,7 @@ import Perfil from './pages/Perfil'
 import DonoQuadraNova from './pages/DonoQuadraNova'
 import DonoReservas from './pages/DonoReservas'
 import Responder from './pages/Responder'
-
+import Suporte from './pages/Suporte'
 
 export default function App() {
   return (
@@ -32,6 +32,7 @@ export default function App() {
         <Route path="/dono/reservas" element={<DonoReservas />} />
         <Route path="/dono/quadra/:id/editar" element={<DonoQuadraNova />} />
         <Route path="/responder/:token" element={<Responder />} />
+        <Route path="/suporte" element={<Suporte />} />
         <Route path="*" element={<p style={{padding:20}}>Página não encontrada</p>} />
       </Routes>
     </BrowserRouter>
