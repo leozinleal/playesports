@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import PainelMarca from '../components/PainelMarca'
 import ConfirmeEmail from '../components/ConfirmeEmail'
+import CamposSenha from '../components/CamposSenha'
 import { criarConta } from '../cadastroConta'
 import { mascaraCpf, mascaraTel } from '../utils'
 import './login.css'
@@ -15,7 +16,7 @@ const IconLock = () => <svg {...ico}><rect x="5" y="11" width="14" height="10" r
 
 export default function Cadastro() {
   const nav = useNavigate()
-  const [f, setF] = useState({ nome: '', email: '', telefone: '', cpf: '', senha: '' })
+  const [f, setF] = useState({ nome: '', email: '', telefone: '', cpf: '', senha: '', confirma: '' })
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
   const [enviado, setEnviado] = useState('')
@@ -23,7 +24,9 @@ export default function Cadastro() {
   const setMasc = (k, fn) => (e) => setF({ ...f, [k]: fn(e.target.value) })
 
   async function cadastrar(e) {
-    e.preventDefault(); setErro(''); setCarregando(true)
+    e.preventDefault(); setErro('')
+    if (f.senha !== f.confirma) return setErro('As senhas não conferem.')
+    setCarregando(true)
     const r = await criarConta({ ...f, tipo: 'cliente' })
     setCarregando(false)
     if (r.erro) return setErro(r.erro)
@@ -47,7 +50,7 @@ export default function Cadastro() {
           <label className="auth-campo"><IconMail /><input type="email" placeholder="E-mail" value={f.email} onChange={set('email')} autoComplete="email" required /></label>
           <label className="auth-campo"><IconId /><input inputMode="numeric" placeholder="CPF" value={f.cpf} onChange={setMasc('cpf', mascaraCpf)} required /></label>
           <label className="auth-campo"><IconPhone /><input inputMode="tel" placeholder="Telefone com DDD (WhatsApp)" value={f.telefone} onChange={setMasc('telefone', mascaraTel)} required /></label>
-          <label className="auth-campo"><IconLock /><input type="password" placeholder="Senha (mín. 6 caracteres)" minLength={6} value={f.senha} onChange={set('senha')} autoComplete="new-password" required /></label>
+          <CamposSenha senha={f.senha} onSenha={set('senha')} confirma={f.confirma} onConfirma={set('confirma')} />
           {erro && <p className="auth-erro" role="alert">{erro}</p>}
           <button className="auth-botao" disabled={carregando}>{carregando ? 'Cadastrando...' : 'Cadastrar'}</button>
           <p className="auth-rodape">Já tem conta? <Link to="/login">Entrar</Link></p>
