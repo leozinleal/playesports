@@ -19,11 +19,11 @@ function Campo({ valor, onChange, placeholder }) {
 }
 
 // Senha + confirmar senha, cada uma com o olhinho
-export default function CamposSenha({ senha, onSenha, confirma, onConfirma }) {
+export default function CamposSenha({ senha, onSenha, confirma, onConfirma, rotulo = 'Senha (mín. 6 caracteres)', rotuloConfirma = 'Confirmar senha' }) {
   return (
     <>
-      <Campo valor={senha} onChange={onSenha} placeholder="Senha (mín. 6 caracteres)" />
-      <Campo valor={confirma} onChange={onConfirma} placeholder="Confirmar senha" />
+      <Campo valor={senha} onChange={onSenha} placeholder={rotulo} />
+      <Campo valor={confirma} onChange={onConfirma} placeholder={rotuloConfirma} />
     </>
   )
 }

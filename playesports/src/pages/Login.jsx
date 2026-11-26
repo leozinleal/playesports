@@ -68,6 +68,7 @@ export default function Login() {
             <input type={verSenha ? 'text' : 'password'} placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="current-password" required />
             <button type="button" className="auth-olho" onClick={() => setVerSenha(!verSenha)} aria-label={verSenha ? 'Ocultar senha' : 'Mostrar senha'}><IconEye off={verSenha} /></button>
           </label>
+          <Link to="/recuperar-senha" className="auth-esqueci">Esqueci minha senha</Link>
           {erro && <p className="auth-erro" role="alert">{erro}</p>}
           <button className="auth-botao" disabled={carregando}>{carregando ? 'Entrando...' : 'Entrar'}</button>
 
