@@ -17,7 +17,7 @@ export default function DonoQuadraNova() {
   const editando = Boolean(id)
   const [userId, setUserId] = useState(null)
   const [f, setF] = useState({
-    nome: '', cidade: 'Capão da Canoa', endereco: '', telefone: '',
+    nome: '', cidade: '', endereco: '', telefone: '',
     preco_hora: '', horario_abertura: '08:00', horario_fechamento: '23:00',
     descricao: '', modalidades: [],
   })
@@ -25,6 +25,9 @@ export default function DonoQuadraNova() {
   const [removidas, setRemovidas] = useState([]) // fotos tiradas; só apagadas do armazenamento ao salvar
   const [erro, setErro] = useState('')
   const [salvando, setSalvando] = useState(false)
+  const [cep, setCep] = useState('')
+  const [cepMsg, setCepMsg] = useState({ txt: '', ok: false })
+  const endRef = useRef(null)
   const [largo, setLargo] = useState(() => window.innerWidth >= 760)
   const raiz = useRef(null)
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value })
@@ -56,6 +59,29 @@ export default function DonoQuadraNova() {
     return () => obs.disconnect()
   }, [])
 
+  // digitou o CEP: busca rua, bairro e cidade (ViaCEP, serviço gratuito dos Correios/BR)
+  async function mudarCep(e) {
+    const d = e.target.value.replace(/\D/g, '').slice(0, 8)
+    setCep(d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d)
+    setCepMsg({ txt: '', ok: false })
+    if (d.length !== 8) return
+    setCepMsg({ txt: 'Buscando CEP...', ok: false })
+    try {
+      const r = await fetch(`https://viacep.com.br/ws/${d}/json/`)
+      const j = await r.json()
+      if (j.erro) return setCepMsg({ txt: 'CEP não encontrado. Preencha a cidade e o endereço.', ok: false })
+      setF((x) => ({
+        ...x,
+        cidade: j.localidade || x.cidade,
+        endereco: j.logradouro ? `${j.logradouro}${j.bairro ? ', ' + j.bairro : ''}` : x.endereco,
+      }))
+      setCepMsg({ txt: `${j.localidade}/${j.uf} — agora complete o número no endereço.`, ok: true })
+      endRef.current?.focus()
+    } catch {
+      setCepMsg({ txt: 'Não foi possível buscar o CEP agora. Preencha a cidade e o endereço.', ok: false })
+    }
+  }
+
   function alternar(m) {
     setF({ ...f, modalidades: f.modalidades.includes(m) ? f.modalidades.filter((x) => x !== m) : [...f.modalidades, m] })
   }
@@ -63,6 +89,7 @@ export default function DonoQuadraNova() {
   async function salvar(e) {
     e.preventDefault(); setErro('')
     if (f.horario_fechamento <= f.horario_abertura) return setErro('O fechamento precisa ser depois da abertura.')
+    if (!f.cidade) return setErro('Digite um CEP válido para preencher a cidade.')
     setSalvando(true)
     const dados = {
       nome: f.nome, cidade: f.cidade, endereco: f.endereco,
@@ -121,8 +148,12 @@ export default function DonoQuadraNova() {
                 <section className="nq-sec">
                   <h3><span>1</span>Dados da quadra</h3>
                   <label>Nome da quadra<input value={f.nome} onChange={set('nome')} required /></label>
+                  <label>CEP
+                    <input inputMode="numeric" placeholder="00000-000" value={cep} onChange={mudarCep} required={!editando} />
+                    {cepMsg.txt && <span className={cepMsg.ok ? 'nq-dica ok' : 'nq-dica'}>{cepMsg.txt}</span>}
+                  </label>                  
                   <div className="nq-duas">
-                    <label>Cidade<input value={f.cidade} onChange={set('cidade')} required /></label>
+                    <label>Cidade<input value={f.cidade} readOnly placeholder="Preenchida pelo CEP" /></label>
                     <label>Telefone / WhatsApp<input inputMode="tel" value={f.telefone} onChange={set('telefone')} /></label>
                   </div>
                   <label>Endereço<input value={f.endereco} onChange={set('endereco')} required /></label>

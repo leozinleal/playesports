@@ -32,3 +32,6 @@
 .nq-cancelar{background:#eee;color:#333}
 .nq-salvar{background:var(--verde);color:#fff;flex:1;max-width:340px}
 .nq-salvar:disabled{opacity:.6}
+.nq-dica{font-size:12px;font-weight:400;color:var(--muted)}
+.nq-dica.ok{color:var(--verde);font-weight:600}
+.nq-sec input[readonly]{background:#f3f1ef;color:#555;cursor:not-allowed}
