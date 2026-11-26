@@ -26,6 +26,8 @@ export default function Reserva() {
   const [colete, setColete] = useState(false)
   const [erro, setErro] = useState('')
   const [salvando, setSalvando] = useState(false)
+  const [conflito, setConflito] = useState(false)   // aviso: horário foi pego por outra pessoa
+  const [recarga, setRecarga] = useState(0)
   const [largo, setLargo] = useState(() => window.innerWidth >= 760)
   const raiz = useRef(null)
   const dataRef = useRef(null)
@@ -38,7 +40,7 @@ export default function Reserva() {
       if (vivo) setOcupados((d || []).map((r) => r.horario_inicio.slice(0, 5)))
     })
     return () => { vivo = false }
-  }, [id, data])
+  }, [id, data, recarga])
   useEffect(() => {
     const el = raiz.current
     if (!el) return
@@ -73,7 +75,10 @@ export default function Reserva() {
       horario_inicio: slot, horario_fim: somaHora(slot), colete, valor_total: total,
     }).select().single()
     setSalvando(false)
-    if (error) return setErro(error.code === '23505' ? 'Esse horário acabou de ser reservado. Escolha outro.' : 'Erro ao reservar: ' + error.message)
+        if (error) {
+      if (error.code === '23505') { setConflito(true); setSlot(''); setRecarga((n) => n + 1); return }
+      return setErro('Erro ao reservar: ' + error.message)
+    }
     nav(`/reserva/${nova.id}`)
   }
 
@@ -138,6 +143,17 @@ export default function Reserva() {
             <button className="btn-alugar" onClick={confirmar} disabled={salvando}>{salvando ? '...' : 'Solicitar'}</button></div>
         )}
       </main>
+
+      {conflito && (
+        <div className="rs-modal" role="dialog" aria-modal="true" onClick={() => setConflito(false)}>
+          <div className="rs-modal-caixa" onClick={(e) => e.stopPropagation()}>
+            <div className="rs-modal-ico">⏰</div>
+            <h3>Horário indisponível</h3>
+            <p>Esse horário acabou de ser reservado por outra pessoa. Atualizamos a lista, escolha outro horário.</p>
+            <button type="button" className="rs-go" onClick={() => setConflito(false)}>Escolher outro horário</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
